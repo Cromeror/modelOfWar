@@ -14,13 +14,19 @@ import java.awt.FlowLayout;
 public class ViewModelWar extends javax.swing.JFrame {
 
     /**
-     * Creates new form VistaModelWar
-     */
+             * Creates new form VistaModelWar
+             */
     private Grafic g = new Grafic();
 
     public ViewModelWar() {
         initComponents();
+        this.setLocationRelativeTo(this);
         jPanel3.setLayout(new FlowLayout());
+        loadModel();
+    }
+
+    private void loadModel() {
+        
     }
 
     /**
@@ -183,6 +189,11 @@ public class ViewModelWar extends javax.swing.JFrame {
         );
 
         jButton1.setText("Simular");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -234,11 +245,16 @@ public class ViewModelWar extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

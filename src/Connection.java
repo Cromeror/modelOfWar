@@ -63,4 +63,19 @@ public class Connection {
     public static boolean setValue(String varName, String value) {
         return Vensim.command("SIMULATE>SETVAL|" + varName + "=" + value) == 1;
     }
+
+    /**
+     * Retorna el valor de una variable estatica
+     *
+     * @param varName: nombre de la variable
+     * @return
+     */
+    public static float getValueVar(String varName) {
+        //Esta funcion solo obtiene un valor
+        //Primer parametro: nombre de la variable
+        //segundo parametro: array en donde se guardara el valor
+        float result[] = new float[1];
+        Vensim.get_val(varName, result);
+        return result[0];
+    }
 }
