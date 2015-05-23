@@ -65,7 +65,7 @@ public class Connection {
     }
 
     /**
-     * Retorna el valor de una variable estatica
+     * Retorna el valor de una variable auxiliar
      *
      * @param varName: nombre de la variable
      * @return

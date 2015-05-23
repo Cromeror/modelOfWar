@@ -45,7 +45,7 @@ public class Grafic {
     }
 
     /**
-     *
+     *Agrega datos para mostrar en la grafica.
      * @param value: el valor que se va a graficar
      * @param group: El identificador del grupo de datos. Si se ha de graficar
      * datos de diferentes tipos, se le coloca diferentes identificadores.

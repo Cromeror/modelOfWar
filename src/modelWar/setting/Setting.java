@@ -15,13 +15,19 @@ import java.util.Properties;
  */
 public class Setting {
 
-    private int EIT;
+    private float EIT;
 
-    private int EST;
+    private float EST;
 
-    private int ESH;
+    private float ESH;
 
-    private int EITVH;
+    private float EITVH;
+    private float T;
+    private float IT;
+    private float H;
+    private float TL;
+    private float ITL;
+    private float HL;
 
     private final Properties properties;
 
@@ -41,45 +47,99 @@ public class Setting {
         return instance;
     }
 
-    public int getEIT() {
+    public float getT() {
+        return T;
+    }
+
+    public void setT(float T) {
+        this.T = T;
+    }
+
+    public float getIT() {
+        return IT;
+    }
+
+    public void setIT(float IT) {
+        this.IT = IT;
+    }
+
+    public float getH() {
+        return H;
+    }
+
+    public void setH(float H) {
+        this.H = H;
+    }
+
+    public float getTL() {
+        return TL;
+    }
+
+    public void setTL(float TL) {
+        this.TL = TL;
+    }
+
+    public float getITL() {
+        return ITL;
+    }
+
+    public void setITL(float ITL) {
+        this.ITL = ITL;
+    }
+
+    public float getHL() {
+        return HL;
+    }
+
+    public void setHL(float HL) {
+        this.HL = HL;
+    }
+
+    public float getEIT() {
         return EIT;
     }
 
-    public void setEIT(int EIT) {
+    public void setEIT(float EIT) {
         this.EIT = EIT;
     }
 
-    public int getEST() {
+    public float getEST() {
         return EST;
     }
 
-    public void setEST(int averageTimeOut) {
-        this.EST = averageTimeOut;
+    public void setEST(float EST) {
+        this.EST = EST;
     }
 
-    public int getESH() {
+    public float getESH() {
         return ESH;
     }
 
-    public void setESH(int servers) {
-        this.ESH = servers;
+    public void setESH(float ESH) {
+        this.ESH = ESH;
     }
 
-    public int getEITVH() {
+    public float getEITVH() {
         return EITVH;
     }
 
-    public void setEITVH(int rows) {
-        this.EITVH = rows;
+    public void setEITVH(float EITVH) {
+        this.EITVH = EITVH;
     }
 
     private void load() throws IOException {
         properties.load(getClass().getResourceAsStream("setting.properties"));
         //cargamos las propiedades
-        this.EIT = Integer.parseInt(properties.getProperty("setting.EIT"));
-        this.EST = Integer.parseInt(properties.getProperty("setting.EST"));
-        this.ESH = Integer.parseInt(properties.getProperty("setting.ESH"));
-        this.EITVH = Integer.parseInt(properties.getProperty("setting.EITVH"));
+        this.EIT = Float.parseFloat(properties.getProperty("setting.EIT"));
+        this.EST = Float.parseFloat(properties.getProperty("setting.EST"));
+        this.ESH = Float.parseFloat(properties.getProperty("setting.ESH"));
+        this.EITVH = Float.parseFloat(properties.getProperty("setting.EITVH"));
+        this.T = Float.parseFloat(properties.getProperty("setting.T"));
+        this.IT = Float.parseFloat(properties.getProperty("setting.IT"));
+        this.H = Float.parseFloat(properties.getProperty("setting.H"));
+        this.TL = Float.parseFloat(properties.getProperty("setting.TL"));
+        this.ITL = Float.parseFloat(properties.getProperty("setting.ITL"));
+        this.HL = Float.parseFloat(properties.getProperty("setting.HL"));
     }
 
     public void save() throws IOException {
@@ -87,6 +147,12 @@ public class Setting {
         properties.setProperty("setting.EST", String.valueOf(this.getEST()));
         properties.setProperty("setting.ESH", String.valueOf(this.getESH()));
         properties.setProperty("setting.EITVH", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.T", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.IT", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.H", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.TL", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.ITL", String.valueOf(this.getEITVH()));
+        properties.setProperty("setting.HL", String.valueOf(this.getEITVH()));
         //guardamos el archivo propiedades
         String uri = getClass().getResource("setting.properties").getFile().replaceAll("%20", " ");
         properties.store(new FileOutputStream(uri), null);
