@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import modelWar.setting.Setting;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

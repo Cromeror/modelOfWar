@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+
 
 import java.awt.FlowLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import modelWar.setting.Setting;
 
 /**
  *
@@ -21,6 +20,9 @@ public class ViewModelWar extends javax.swing.JFrame {
      * Creates new form VistaModelWar
      */
     private Grafic g = new Grafic();
+
+    private Class classConnection;
+    private Object connection;
 
     public ViewModelWar() {
         initComponents();
@@ -35,7 +37,6 @@ public class ViewModelWar extends javax.swing.JFrame {
 
     private void loadModel() {
         try {
-            jTextFieldEIT.setText("" + Setting.getInstance().getEIT());
             jTextFieldEITVH.setText("" + Setting.getInstance().getEITVH());
             jTextFieldESH.setText("" + Setting.getInstance().getESH());
             jTextFieldEST.setText("" + Setting.getInstance().getEST());
