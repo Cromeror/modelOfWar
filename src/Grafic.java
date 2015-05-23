@@ -51,7 +51,7 @@ public class Grafic {
      * datos de diferentes tipos, se le coloca diferentes identificadores.
      * @param label : La etiqueta de la columna en el gráfico de barras.
      */
-    public void setDatos(int value, String group, String label) {
+    public void setDatos(float value, String group, String label) {
         datos.addValue(value, group, label);
     }
 

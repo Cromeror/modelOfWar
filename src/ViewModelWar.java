@@ -7,6 +7,9 @@ import java.awt.FlowLayout;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import org.jfree.chart.plot.PlotOrientation;
 
 /**
  *
@@ -18,6 +21,7 @@ public class ViewModelWar extends javax.swing.JFrame {
      * Creates new form VistaModelWar
      */
     private Grafic g = new Grafic();
+    private DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
 
     public ViewModelWar() {
         initComponents();
@@ -31,31 +35,35 @@ public class ViewModelWar extends javax.swing.JFrame {
     }
 
     private void loadModel() {
-        try {
-            Setting.getInstance().setEIT(Connection.getValueVar("EIT"));
-            Setting.getInstance().setEITVH(Connection.getValueVar("EITVH"));
-            Setting.getInstance().setESH(Connection.getValueVar("ESH"));
-            Setting.getInstance().setEST(Connection.getValueVar("EST"));
-            Setting.getInstance().setH(Connection.getValueVar("H"));
-            Setting.getInstance().setHL(Connection.getValueVar("HL"));
-            Setting.getInstance().setIT(Connection.getValueVar("IT"));
-            Setting.getInstance().setITL(Connection.getValueVar("ITL"));
-            Setting.getInstance().setT(Connection.getValueVar("T"));
-            Setting.getInstance().setTL(Connection.getValueVar("TL"));
-            //***********
-            jTextFieldEIT.setText("" + Setting.getInstance().getEIT());
-            jTextFieldEITVH.setText("" + Setting.getInstance().getEITVH());
-            jTextFieldESH.setText("" + Setting.getInstance().getESH());
-            jTextFieldEST.setText("" + Setting.getInstance().getEST());
-            jTextFieldH.setText("" + Setting.getInstance().getH());
-            jTextFieldHL.setText("" + Setting.getInstance().getHL());
-            jTextFieldIT.setText("" + Setting.getInstance().getIT());
-            jTextFieldITL.setText("" + Setting.getInstance().getITL());
-            jTextFieldT.setText("" + Setting.getInstance().getT());
-            jTextFieldTL.setText("" + Setting.getInstance().getTL());
-        } catch (IOException ex) {
-            Logger.getLogger(ViewModelWar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Result r = run("Current");
+        ListResult.getInstance().add(r);
+        jTextFieldEIT.setText("" + r.getEIT());
+        jTextFieldEITVH.setText("" + r.getEITVH());
+        jTextFieldESH.setText("" + r.getESH());
+        jTextFieldEST.setText("" + r.getEST());
+        jTextFieldH.setText("" + r.getH_Y()[0]);
+        jTextFieldIT.setText("" + r.getIT_Y()[0]);
+        jTextFieldT.setText("" + r.getT_Y()[0]);
+    }
+    
+    public Result run(String runName){
+        Result r = new Result(runName);
+        ModeloDeGuerra.getInstance().setRunName(runName);;
+        ModeloDeGuerra.getInstance().run();
+        ModeloDeGuerra.getInstance().getT(r.getT_Y());
+        ModeloDeGuerra.getInstance().getT(r.getTL_Y());
+        ModeloDeGuerra.getInstance().getT(r.getIT_Y());
+        ModeloDeGuerra.getInstance().getT(r.getITL_Y());
+        ModeloDeGuerra.getInstance().getT(r.getH_Y());
+        ModeloDeGuerra.getInstance().getT(r.getHL_Y());
+        ModeloDeGuerra.getInstance().getT(r.getEST());
+        ModeloDeGuerra.getInstance().getT(r.getESH());
+        ModeloDeGuerra.getInstance().getT(r.getEITVH());
+        ModeloDeGuerra.getInstance().getT(r.getEIT());
+        
+        dcbm.addElement(runName);
+        
+        return r;
     }
 
     /**
@@ -76,12 +84,8 @@ public class ViewModelWar extends javax.swing.JFrame {
         jTextFieldT = new javax.swing.JTextField();
         jTextFieldIT = new javax.swing.JTextField();
         jTextFieldH = new javax.swing.JTextField();
-        jTextFieldHL = new javax.swing.JTextField();
-        jTextFieldITL = new javax.swing.JTextField();
-        jTextFieldTL = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        jTextFieldRunName = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -93,6 +97,8 @@ public class ViewModelWar extends javax.swing.JFrame {
         jTextFieldEITVH = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,11 +108,7 @@ public class ViewModelWar extends javax.swing.JFrame {
 
         jLabelT.setText("Tanques de guerra USA");
 
-        jLabel6.setText("TL");
-
-        jLabel7.setText("ITL");
-
-        jLabel8.setText("HL");
+        jLabel6.setText("Nombre de la corrida");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,25 +116,21 @@ public class ViewModelWar extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabelIT)
                                 .addComponent(jLabelT))
-                            .addGap(4, 4, 4)))
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGap(4, 4, 4))))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldT)
+                    .addComponent(jTextFieldT, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                     .addComponent(jTextFieldIT)
                     .addComponent(jTextFieldH)
-                    .addComponent(jTextFieldTL)
-                    .addComponent(jTextFieldITL)
-                    .addComponent(jTextFieldHL, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
+                    .addComponent(jTextFieldRunName))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,18 +148,10 @@ public class ViewModelWar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextFieldTL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextFieldITL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jTextFieldHL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldRunName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -186,7 +176,7 @@ public class ViewModelWar extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -220,7 +210,7 @@ public class ViewModelWar extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jTextFieldEITVH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jButton1.setText("Simular");
@@ -237,8 +227,8 @@ public class ViewModelWar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,8 +240,8 @@ public class ViewModelWar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -259,15 +249,45 @@ public class ViewModelWar extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Simular", jPanel2);
 
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 199, Short.MAX_VALUE)
+        );
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 428, Short.MAX_VALUE))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Graficas", jPanel3);
@@ -287,7 +307,18 @@ public class ViewModelWar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if (!jTextFieldRunName.getText().equals("")) {
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldEIT.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldEITVH.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldESH.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldEST.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldH.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldIT.getText()));
+            ModeloDeGuerra.getInstance().setEIT(Float.parseFloat(jTextFieldT.getText()));
+            run(jTextFieldRunName.getText());
+        }else{
+            JOptionPane.showMessageDialog(null, "Digite el nomre e la corrida");
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -295,6 +326,18 @@ public class ViewModelWar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldESTActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        Grafic g = new Grafic();
+        loadGraphic(ListResult.getInstance().get(jComboBox1.getSelectedIndex()).getT_Y(), g);
+        jPanel5.setLayout(new FlowLayout());
+        jPanel5.add(g.generateGrafica("T", "Tiempo", "Tanques USA", PlotOrientation.HORIZONTAL));
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    public void loadGraphic(float[] value, Grafic g){
+        for (int i = 0; i < value.length; i++) {
+            g.setDatos(value[0], "", i+"");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -332,30 +375,28 @@ public class ViewModelWar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelIT;
     private javax.swing.JLabel jLabelT;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextFieldEIT;
     private javax.swing.JTextField jTextFieldEITVH;
     private javax.swing.JTextField jTextFieldESH;
     private javax.swing.JTextField jTextFieldEST;
     private javax.swing.JTextField jTextFieldH;
-    private javax.swing.JTextField jTextFieldHL;
     private javax.swing.JTextField jTextFieldIT;
-    private javax.swing.JTextField jTextFieldITL;
+    private javax.swing.JTextField jTextFieldRunName;
     private javax.swing.JTextField jTextFieldT;
-    private javax.swing.JTextField jTextFieldTL;
     // End of variables declaration//GEN-END:variables
 }

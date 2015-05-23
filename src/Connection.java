@@ -70,12 +70,10 @@ public class Connection {
      * @param varName: nombre de la variable
      * @return
      */
-    public static float getValueVar(String varName) {
+    public static void getValueVar(String varName, float result[]) {
         //Esta funcion solo obtiene un valor
         //Primer parametro: nombre de la variable
         //segundo parametro: array en donde se guardara el valor
-        float result[] = new float[1];
         Vensim.get_val(varName, result);
-        return result[0];
     }
 }

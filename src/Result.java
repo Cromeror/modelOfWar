@@ -13,6 +13,7 @@ import com.sun.imageio.plugins.jpeg.JPEG;
  */
 public class Result {
 
+    private String runName;
     private float T_X[];
     private float IT_X[];
     private float H_X[];
@@ -32,8 +33,9 @@ public class Result {
     private float ESH[];
     private float EITVH[];
 
-    public Result() {
-
+    public Result(String runName) {
+        
+        this.runName = runName;
         T_X = new float[10];
         IT_X = new float[10];
         H_X = new float[10];
@@ -53,11 +55,6 @@ public class Result {
     }
 
     public float[] getT_X() {
-        try {
-            Class t = Class.forName("Tovar");
-            Object o = t.newInstance();
-        } catch (Exception e) {
-        }
         return T_X;
     }
 
@@ -119,6 +116,10 @@ public class Result {
 
     public float[] getEITVH() {
         return EITVH;
+    }
+
+    public String getRunName() {
+        return runName;
     }
 
 }
