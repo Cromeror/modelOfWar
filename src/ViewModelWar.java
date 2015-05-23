@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import java.awt.FlowLayout;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -21,9 +19,6 @@ public class ViewModelWar extends javax.swing.JFrame {
      */
     private Grafic g = new Grafic();
 
-    private Class classConnection;
-    private Object connection;
-
     public ViewModelWar() {
         initComponents();
         init();
@@ -37,6 +32,18 @@ public class ViewModelWar extends javax.swing.JFrame {
 
     private void loadModel() {
         try {
+            Setting.getInstance().setEIT(Connection.getValueVar("EIT"));
+            Setting.getInstance().setEITVH(Connection.getValueVar("EITVH"));
+            Setting.getInstance().setESH(Connection.getValueVar("ESH"));
+            Setting.getInstance().setEST(Connection.getValueVar("EST"));
+            Setting.getInstance().setH(Connection.getValueVar("H"));
+            Setting.getInstance().setHL(Connection.getValueVar("HL"));
+            Setting.getInstance().setIT(Connection.getValueVar("IT"));
+            Setting.getInstance().setITL(Connection.getValueVar("ITL"));
+            Setting.getInstance().setT(Connection.getValueVar("T"));
+            Setting.getInstance().setTL(Connection.getValueVar("TL"));
+            //***********
+            jTextFieldEIT.setText("" + Setting.getInstance().getEIT());
             jTextFieldEITVH.setText("" + Setting.getInstance().getEITVH());
             jTextFieldESH.setText("" + Setting.getInstance().getESH());
             jTextFieldEST.setText("" + Setting.getInstance().getEST());
